@@ -5,10 +5,20 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.*;
+
 /**
  *
  * @author Kevin
  */
-public class Author {
-    
+@Entity
+@DiscriminatorValue(value = "Author")
+@PrimaryKeyJoinColumn(referencedColumnName = "personID")
+@SuppressWarnings("SerializableClass")
+
+public class Author extends Person {
+
+    private List<Manuscript> mlist= new ArrayList<>();
 }

@@ -5,10 +5,22 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.*;
+
 /**
  *
  * @author Kevin
  */
-public class Reviewer {
-    
+@Entity
+@DiscriminatorValue(value = "Reviewer")
+@PrimaryKeyJoinColumn(referencedColumnName = "personID")
+@SuppressWarnings("SerializableClass")
+
+public class Reviewer extends Person {
+
+    private List<Interest> ilist= new ArrayList<>();
+    private List<Manuscript> mlist= new ArrayList<>();
+
 }

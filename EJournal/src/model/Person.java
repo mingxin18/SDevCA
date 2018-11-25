@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package model;
-
-import java.util.Calendar;
 import javax.persistence.*;
 
 @Entity
