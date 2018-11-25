@@ -26,8 +26,30 @@ public class TestJournalDB {
             System.out.println("Press 6 to add a journal issue.");
             System.out.println("Press 7 to schedule a manuscript for publication.");
             System.out.println("Press 8 to publish an issue.");
+            //Searching and viewing. Nested menu?
+            System.out.println("Press 9 to view all authors of a manuscript.");
+            System.out.println("Press 10 to view all manuscripts in a published journal issue.");
+            System.out.println("Press 11 to see all manuscripts submitted by an author.");
+            System.out.println("Press 12 to search for a key word.");//Might be difficult to implement, check later.
+            System.out.println("Press 13 to see all details on a manuscript.");
+            System.out.println("Press 14 to see all details on an author.");
+            System.out.println("Press 15 to see all details on a reviewer.");
+            System.out.println("Press 16 to see all details on a journal issue.");
             
-            System.out.println("Press 9 to exit.");
+            //Admin, adding and removing entities. Nested Menu?
+            System.out.println("Press x to add an author.");
+            System.out.println("Press x to add a reviewer.");
+            System.out.println("Press x to add an affiliate.");
+            System.out.println("Press x to add an interest.");
+            System.out.println("Press x to remove an author.");
+            System.out.println("Press x to remove a reviewer.");
+            System.out.println("Press x to remove an affiliate.");
+            System.out.println("Press x to remove an interest.");
+            System.out.println("Press x to add an interest to a reviewer.");
+            System.out.println("Press x to remove an interest to a reviewer.");
+            
+            //Exit
+            System.out.println("Press 99 to exit.");
 
             int choice = in.nextInt();
             in.nextLine();
@@ -130,7 +152,7 @@ public class TestJournalDB {
 //                    po.accept(x,currentDate);
                     //Should change to 'accepted' or 'rejected'
                     break;
-                case 9:
+                case 99:
                     System.exit(0);
                 default:
                     System.out.println("Invalid option entered.");
