@@ -48,13 +48,17 @@ public class JournalOperations {
     }
 
     public void dropSequences() {
-        dropReviewerSequence();
-        dropAuthorSequence();
+        dropPersonSequence();
+//        dropReviewerSequence();
+//        dropAuthorSequence();
         dropManuscriptSequence();
         dropAffiliateSequence();
     }
 
     public void dropTables() {
+//        dropReviewerInterestTable();
+//        dropManuscriptAuthorTable();
+//        dropManuscriptReviewTable();
         dropManuscriptTable();
         dropReviewerTable();
         dropAuthorTable();
@@ -65,9 +69,9 @@ public class JournalOperations {
     }
 
     public void createSequences() {
-        createReviewerSequence();
-        createAuthorSequence();
-//        createPersonSequence();
+        createPersonSequence();
+//        createReviewerSequence();
+//        createAuthorSequence();
         createManuscriptSequence();
         createAffiliateSequence();
     }
@@ -77,13 +81,23 @@ public class JournalOperations {
         createPersonTable();
         createReviewerTable();
         createAuthorTable();
-        createManuscriptTable();//Done
+        createManuscriptTable();
         createJournalTable();
         createInterestTable();
         createAffiliateTable();
 //        createReviewerInterestTable();
 //        createManuscriptAuthorTable();
 //        createManuscriptReviewTable();
+    }
+    
+    public void dropPersonSequence(){
+        try{
+            String s1 = "drop sequence pid_seq";
+            pstmt = conn.prepareStatement(s1);
+            pstmt.executeUpdate();
+            System.out.println("Person Sequence dropped");
+        } catch (SQLException ex){
+        }
     }
 
     public void dropReviewerSequence() {
@@ -200,6 +214,17 @@ public class JournalOperations {
             pstmt.executeUpdate();
             System.out.println("Person table dropped");
         } catch (SQLException ex) {
+        }
+    }
+    
+    public void createPersonSequence(){
+        try{
+            String createseq1 = "create sequence pid_seq incremebt by 1 start with 1";
+            pstmt = conn.prepareStatement(createseq1);
+            pstmt.executeUpdate();
+            System.out.println("Person Sequence created");
+        }catch (SQLException ex){
+            System.out.println("Problem with Person Sequence "+ex.getMessage());
         }
     }
 
@@ -377,9 +402,9 @@ public class JournalOperations {
                     + "Person table" + ex.getMessage());
         }
     }
-    
-    public void fillTables(){
-        
+
+    public void fillTables() {
+
     }
 
 }
