@@ -5,10 +5,49 @@
  */
 package db;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.*;
+
+import model.Affiliate;
+import model.Author;
+import model.Interest;
+import model.Journal;
+import model.Manuscript;
+import model.Person;
+import model.Reviewer;
 /**
  *
  * @author Kevin
  */
 public class PersistenceOperations {
+    EntityManagerFactory emf;
+    EntityManager em;
+
+    public PersistenceOperations() {
+        emf = Persistence.createEntityManagerFactory("SDevPU");
+        em = emf.createEntityManager();
+    }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public void close() {
+        em.close();
+        emf.close();
+    }
+
+
 }
