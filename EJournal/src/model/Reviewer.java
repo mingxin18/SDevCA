@@ -14,7 +14,7 @@ import javax.persistence.*;
  * @author Kevin
  */
 @Entity
-@DiscriminatorValue(value = "Reviewer")
+//@DiscriminatorValue(value = "Reviewer")
 @PrimaryKeyJoinColumn(referencedColumnName = "personID")
 @SuppressWarnings("SerializableClass")
 

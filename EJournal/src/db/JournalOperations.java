@@ -22,9 +22,9 @@ public class JournalOperations {
             OracleDataSource ods = new OracleDataSource();
 
             // Tallaght
-//             ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
-//             ods.setUser("");
-//             ods.setPassword("");
+            ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
+            ods.setUser("x00149930");
+            ods.setPassword("db26Aug83");
             // Home Oracle XE
 //            ods.setURL("jdbc:oracle:thin:HR/pmagee@localhost:1521:XE");
 //            ods.setUser("hr");
@@ -60,12 +60,12 @@ public class JournalOperations {
 //        dropManuscriptAuthorTable();
 //        dropManuscriptReviewTable();
         dropManuscriptTable();
-        dropReviewerTable();
         dropAuthorTable();
+        dropReviewerTable();
         dropJournalTable();
         dropInterestTable();
-        dropAffiliateTable();
         dropPersonTable();
+        dropAffiliateTable();
     }
 
     public void createSequences() {
@@ -81,22 +81,21 @@ public class JournalOperations {
         createPersonTable();
         createReviewerTable();
         createAuthorTable();
-        createManuscriptTable();
         createJournalTable();
+        createManuscriptTable();
         createInterestTable();
-        createAffiliateTable();
 //        createReviewerInterestTable();
 //        createManuscriptAuthorTable();
 //        createManuscriptReviewTable();
     }
-    
-    public void dropPersonSequence(){
-        try{
+
+    public void dropPersonSequence() {
+        try {
             String s1 = "drop sequence pid_seq";
             pstmt = conn.prepareStatement(s1);
             pstmt.executeUpdate();
             System.out.println("Person Sequence dropped");
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
         }
     }
 
@@ -154,7 +153,7 @@ public class JournalOperations {
     public void dropReviewerTable() {
         System.out.println("Checking for existence of Reviewer table");
         try {
-            String s1 = "DROP TABLE Manuscript";
+            String s1 = "DROP TABLE Reviewer";
             pstmt = conn.prepareStatement(s1);
             pstmt.executeUpdate();
             System.out.println("Reviewer table dropped");
@@ -216,15 +215,15 @@ public class JournalOperations {
         } catch (SQLException ex) {
         }
     }
-    
-    public void createPersonSequence(){
-        try{
-            String createseq1 = "create sequence pid_seq incremebt by 1 start with 1";
+
+    public void createPersonSequence() {
+        try {
+            String createseq1 = "create sequence pid_seq increment by 1 start with 1";
             pstmt = conn.prepareStatement(createseq1);
             pstmt.executeUpdate();
             System.out.println("Person Sequence created");
-        }catch (SQLException ex){
-            System.out.println("Problem with Person Sequence "+ex.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Problem with Person Sequence " + ex.getMessage());
         }
     }
 
@@ -286,8 +285,8 @@ public class JournalOperations {
                     + "OR manuscript_status='rejected' "
                     + "OR manuscript_status='under review' "
                     + "OR manuscript_status='scheduled' "
-                    + "OR manuscript_status='published')"
-                    + "foreign key (journal_id) references Journal (journal_id) ON DELETE SET NULL)";
+                    + "OR manuscript_status='published'),"
+                    + "foreign key (journal_id) references Journal(journal_id) ON DELETE SET NULL)";
             pstmt = conn.prepareStatement(sql);
             pstmt.executeUpdate();
 
@@ -336,7 +335,7 @@ public class JournalOperations {
                     + "OR pub_period = 'Summer' "
                     + "OR pub_period = 'Fall' "
                     + "OR pub_period = 'Winter'),"
-                    + "primary key(journal_id)";
+                    + "primary key(journal_id))";
             pstmt = conn.prepareStatement(sql);
             pstmt.executeUpdate();
 
@@ -369,10 +368,11 @@ public class JournalOperations {
     public void createAffiliateTable() {
         try {
             String sql = "create table Affiliate("
-                    + "affiliate_id number PRIMARY KEY NOT NULL,"
+                    + "affiliate_id number NOT NULL,"
                     + "affiliate_name varchar2(255),"
                     + "contact_address varchar2(255),"
-                    + "contact_email varchar2(255))";
+                    + "contact_email varchar2(255),"
+                    + "primary key (affiliate_id))";
             pstmt = conn.prepareStatement(sql);
             pstmt.executeUpdate();
 
@@ -393,7 +393,7 @@ public class JournalOperations {
                     + "affiliate_id number,"
                     + "role varchar2(10),"
                     + "FOREIGN KEY (affiliate_id) "
-                    + "REFERENCES affiliate(affiliate_id) ON DELETE SET NULL";
+                    + "REFERENCES affiliate(affiliate_id) ON DELETE SET NULL)";
             pstmt = conn.prepareStatement(sql);
             pstmt.executeUpdate();
 

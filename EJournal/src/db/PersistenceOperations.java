@@ -25,7 +25,7 @@ public class PersistenceOperations {
     EntityManager em;
 
     public PersistenceOperations() {
-        emf = Persistence.createEntityManagerFactory("SDevPU");
+        emf = Persistence.createEntityManagerFactory("EJournalPU");
         em = emf.createEntityManager();
     }
     

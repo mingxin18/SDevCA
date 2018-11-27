@@ -5,6 +5,7 @@
  */
 package test;
 
+import db.JournalOperations;
 import java.util.Scanner;
 
 /**
@@ -14,6 +15,18 @@ import java.util.Scanner;
 public class TestJournalDB {
 
     public static void main(String[] args) {
+        
+        JournalOperations jo = new JournalOperations();
+        
+        jo.openDB();
+        jo.dropSequences();
+        jo.dropTables();
+        jo.createSequences();
+        jo.createTables();
+        
+        
+        
+        
         Scanner in = new Scanner(System.in);
 
         while (true) {
@@ -153,6 +166,7 @@ public class TestJournalDB {
                     //Should change to 'accepted' or 'rejected'
                     break;
                 case 99:
+                    jo.closeDB();
                     System.exit(0);
                 default:
                     System.out.println("Invalid option entered.");

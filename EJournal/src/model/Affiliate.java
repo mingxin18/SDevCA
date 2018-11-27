@@ -14,7 +14,7 @@ import javax.persistence.*;
  * @author Kevin
  */
 @Entity
-@Table(name = "Affiliate")
+//@Table(name = "Affiliate")
 
 @SequenceGenerator(name = "afid_seq", initialValue = 1, allocationSize = 1)
 @SuppressWarnings("SerializableClass")
