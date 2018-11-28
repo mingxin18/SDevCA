@@ -24,8 +24,8 @@ public class TestJournalDB {
         jo.createSequences();
         jo.createTables();
         
-        
-        
+        jo.fillAffiliateTable();
+        jo.fillJournalTable();
         
         Scanner in = new Scanner(System.in);
 

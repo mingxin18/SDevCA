@@ -22,13 +22,13 @@ public class JournalOperations {
             OracleDataSource ods = new OracleDataSource();
 
             // Tallaght
-            ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
-            ods.setUser("x00149930");
-            ods.setPassword("db26Aug83");
+//            ods.setURL("jdbc:oracle:thin:@//10.10.2.7:1521/global1");
+//            ods.setUser("x00149930");
+//            ods.setPassword("db26Aug83");
             // Home Oracle XE
-//            ods.setURL("jdbc:oracle:thin:HR/pmagee@localhost:1521:XE");
-//            ods.setUser("hr");
-//            ods.setPassword("passhr");
+            ods.setURL("jdbc:oracle:thin:HR/kevin@localhost:1521:XE");
+            ods.setUser("hr");
+            ods.setPassword("passhr");
             conn = ods.getConnection();
             System.out.println("connected.");
         } catch (SQLException e) {
@@ -87,7 +87,7 @@ public class JournalOperations {
         createManuscriptTable();
         createInterestTable();
 //        createReviewerInterestTable();
-    createManuscriptAuthorTable();
+        createManuscriptAuthorTable();
 //        createManuscriptReviewTable();
     }
 
@@ -140,8 +140,8 @@ public class JournalOperations {
         } catch (SQLException ex) {
         }
     }
-    
-    public void dropJournalSequence(){
+
+    public void dropJournalSequence() {
         try {
             String s1 = "drop sequence jid_seq";
             pstmt = conn.prepareStatement(s1);
@@ -183,8 +183,8 @@ public class JournalOperations {
         } catch (SQLException ex) {
         }
     }
-    
-    public void dropManuscriptAuthorTable(){
+
+    public void dropManuscriptAuthorTable() {
         System.out.println("Checking for existence of ManuscriptAuthor table");
         try {
             String s1 = "DROP TABLE manuscriptauthor";
@@ -293,8 +293,8 @@ public class JournalOperations {
             System.out.print("Problem with Affiliate Sequence " + ex.getMessage());
         }
     }
-    
-    public void createJournalSequence(){
+
+    public void createJournalSequence() {
         try {
             String createseq1 = "create sequence jid_seq increment by 1 start with 1";
             pstmt = conn.prepareStatement(createseq1);
@@ -355,8 +355,8 @@ public class JournalOperations {
                     + "Author table" + ex.getMessage());
         }
     }
-    
-    public void createManuscriptAuthorTable(){
+
+    public void createManuscriptAuthorTable() {
         try {
             String sql = "create table manuscriptauthor("
                     + "person_id number,"
@@ -455,8 +455,69 @@ public class JournalOperations {
         }
     }
 
-    public void fillTables() {
+    public void fillAffiliateTable() {
+        try {
+            String sql = "INSERT INTO affiliate VALUES(jid_seq.nextVal,?,?,?)";
+            pstmt = conn.prepareStatement(sql);
 
+            pstmt.setString(1, "IT Tallaght");
+            pstmt.setString(2, "1 Tallaght st.");
+            pstmt.setString(3, "contact@itt.ie");
+            pstmt.executeUpdate();
+
+            pstmt.setString(1, "UCD");
+            pstmt.setString(2, "1 UCD st.");
+            pstmt.setString(3, "contact@ucd.ie");
+            pstmt.executeUpdate();
+
+            pstmt.setString(1, "DCU");
+            pstmt.setString(2, "1 DCU st.");
+            pstmt.setString(3, "contact@dcu.ie");
+            pstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("SQL Exception filling "
+                    + "AFFILIATE table" + ex.getMessage());
+        }
+    }
+
+    public void fillJournalTable() {
+        try {
+            String sql = "INSERT INTO journal VALUES(afid_seq.nextVal,?,?,?,?,?)";
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, "Spring");
+            pstmt.setInt(2, 2018);
+            pstmt.setInt(3, 1);
+            pstmt.setInt(4, 1);
+            pstmt.setDate(5,Date.valueOf("2018-01-20"));
+            pstmt.executeUpdate();
+
+            pstmt.setString(1, "Summer");
+            pstmt.setInt(2, 2018);
+            pstmt.setInt(3, 1);
+            pstmt.setInt(4, 2);
+            pstmt.setDate(5,Date.valueOf("2018-04-20"));
+            pstmt.executeUpdate();
+
+            pstmt.setString(1, "Fall");
+            pstmt.setInt(2, 2018);
+            pstmt.setInt(3, 1);
+            pstmt.setInt(4, 3);
+            pstmt.setDate(5,Date.valueOf("2018-07-20"));
+            pstmt.executeUpdate();
+
+            pstmt.setString(1, "Winter");
+            pstmt.setInt(2, 2018);
+            pstmt.setInt(3, 1);
+            pstmt.setInt(4, 4);
+            pstmt.setDate(5,Date.valueOf("2018-10-20"));
+            pstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("SQL Exception filling "
+                    + "AFFILIATE table" + ex.getMessage());
+        }
     }
 
 }
