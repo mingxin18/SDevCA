@@ -490,33 +490,89 @@ public class JournalOperations {
             pstmt.setInt(2, 2018);
             pstmt.setInt(3, 1);
             pstmt.setInt(4, 1);
-            pstmt.setDate(5,Date.valueOf("2018-01-20"));
+            pstmt.setDate(5, Date.valueOf("2018-01-20"));
             pstmt.executeUpdate();
 
             pstmt.setString(1, "Summer");
             pstmt.setInt(2, 2018);
             pstmt.setInt(3, 1);
             pstmt.setInt(4, 2);
-            pstmt.setDate(5,Date.valueOf("2018-04-20"));
+            pstmt.setDate(5, Date.valueOf("2018-04-20"));
             pstmt.executeUpdate();
 
             pstmt.setString(1, "Fall");
             pstmt.setInt(2, 2018);
             pstmt.setInt(3, 1);
             pstmt.setInt(4, 3);
-            pstmt.setDate(5,Date.valueOf("2018-07-20"));
+            pstmt.setDate(5, Date.valueOf("2018-07-20"));
             pstmt.executeUpdate();
 
             pstmt.setString(1, "Winter");
             pstmt.setInt(2, 2018);
             pstmt.setInt(3, 1);
             pstmt.setInt(4, 4);
-            pstmt.setDate(5,Date.valueOf("2018-10-20"));
+            pstmt.setDate(5, Date.valueOf("2018-10-20"));
             pstmt.executeUpdate();
 
         } catch (SQLException ex) {
             System.out.println("SQL Exception filling "
                     + "AFFILIATE table" + ex.getMessage());
+        }
+    }
+
+    public void fillPersonTable() {
+        Statement stmt;
+        try {
+            // Insert data into table
+            stmt = conn.createStatement();
+
+            String sqlperson1 = "INSERT INTO Person VALUES "
+                    + "(pid_seq.nextVal,'John','Smith','2 Grafton St.','john.smith@gmail.com',1,'Author')";
+            stmt.executeUpdate(sqlperson1);
+            
+            String sqlauthor1 = "INSERT INTO Author VALUES (pid_seq.currVal)";
+            stmt.executeUpdate(sqlauthor1);
+
+            String sqlperson2 = "INSERT INTO Person VALUES "
+                    + "(pid_seq.nextVal,'Elaina','Blake','7 Grafton St.','elaina.blake@gmail.com',2,'Author')";
+            stmt.executeUpdate(sqlperson2);
+            
+            String sqlauthor2 = "INSERT INTO Author VALUES (pid_seq.currVal)";
+            stmt.executeUpdate(sqlauthor2);
+
+            String sqlperson3 = "INSERT INTO Person VALUES "
+                    + "(pid_seq.nextVal,'Jayce','Barron','17 Grafton St.','jayce.thompson@gmail.com',3,'Author')";
+            stmt.executeUpdate(sqlperson3);
+            
+            String sqlauthor3 = "INSERT INTO Author VALUES (pid_seq.currVal)";
+            stmt.executeUpdate(sqlauthor3);
+
+            String sqlperson4 = "INSERT INTO Person VALUES "
+                    + "(pid_seq.nextVal,'Logan','Thompson','45 Grafton St.','logan.thompson@gmail.com',1,'Reviewer')";
+            stmt.executeUpdate(sqlperson4);
+            
+            String sqlreviewer1 = "INSERT INTO Reviewer VALUES (pid_seq.currVal)";
+            stmt.executeUpdate(sqlreviewer1);
+
+            String sqlperson5 = "INSERT INTO Person VALUES "
+                    + "(pid_seq.nextVal,'Lydia','Stout','3 Grafton St.','lydia.stout@gmail.com',2,'Reviewer')";
+            stmt.executeUpdate(sqlperson5);
+            
+            String sqlreviewer2 = "INSERT INTO Reviewer VALUES (pid_seq.currVal)";
+            stmt.executeUpdate(sqlreviewer2);
+
+            String sqlperson6 = "INSERT INTO Person VALUES "
+                    + "(pid_seq.nextVal,'Brent','Graves','14 Grafton St.','brent.graves@gmail.com',3,'Reviewer')";
+            stmt.executeUpdate(sqlperson6);
+            
+            String sqlreviewer3 = "INSERT INTO Reviewer VALUES (pid_seq.currVal)";
+            stmt.executeUpdate(sqlreviewer3);
+
+            System.out.println("Person table populated");
+
+        } catch (SQLException ex) {
+            System.out.println("SQL Exception inserting values into "
+                    + "Person table" + ex.getMessage());
         }
     }
 
