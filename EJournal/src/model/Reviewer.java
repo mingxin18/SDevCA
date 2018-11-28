@@ -14,13 +14,13 @@ import javax.persistence.*;
  * @author Kevin
  */
 @Entity
-//@DiscriminatorValue(value = "Reviewer")
-@PrimaryKeyJoinColumn(referencedColumnName = "personID")
+@DiscriminatorValue(value = "Reviewer")
+@PrimaryKeyJoinColumn(referencedColumnName = "person_ID")
 @SuppressWarnings("SerializableClass")
 
 public class Reviewer extends Person {
 
-    private List<Interest> ilist= new ArrayList<>();
+    
     private List<Manuscript> mlist= new ArrayList<>();
 
 }

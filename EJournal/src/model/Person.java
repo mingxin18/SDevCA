@@ -20,6 +20,7 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pid_seq")
+    @Column(name="person_id")
     private int personID;
     private String fname;
     private String lname;

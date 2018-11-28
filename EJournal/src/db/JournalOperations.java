@@ -53,11 +53,12 @@ public class JournalOperations {
 //        dropAuthorSequence();
         dropManuscriptSequence();
         dropAffiliateSequence();
+        dropJournalSequence();
     }
 
     public void dropTables() {
 //        dropReviewerInterestTable();
-//        dropManuscriptAuthorTable();
+        dropManuscriptAuthorTable();
 //        dropManuscriptReviewTable();
         dropManuscriptTable();
         dropAuthorTable();
@@ -74,6 +75,7 @@ public class JournalOperations {
 //        createAuthorSequence();
         createManuscriptSequence();
         createAffiliateSequence();
+        createJournalSequence();
     }
 
     public void createTables() {
@@ -85,7 +87,7 @@ public class JournalOperations {
         createManuscriptTable();
         createInterestTable();
 //        createReviewerInterestTable();
-//        createManuscriptAuthorTable();
+    createManuscriptAuthorTable();
 //        createManuscriptReviewTable();
     }
 
@@ -138,6 +140,16 @@ public class JournalOperations {
         } catch (SQLException ex) {
         }
     }
+    
+    public void dropJournalSequence(){
+        try {
+            String s1 = "drop sequence jid_seq";
+            pstmt = conn.prepareStatement(s1);
+            pstmt.executeUpdate();
+            System.out.println("Journal Sequence dropped");
+        } catch (SQLException ex) {
+        }
+    }
 
     public void dropManuscriptTable() {
         System.out.println("Checking for existence of Manuscript table");
@@ -168,6 +180,17 @@ public class JournalOperations {
             pstmt = conn.prepareStatement(s1);
             pstmt.executeUpdate();
             System.out.println("Author table dropped");
+        } catch (SQLException ex) {
+        }
+    }
+    
+    public void dropManuscriptAuthorTable(){
+        System.out.println("Checking for existence of ManuscriptAuthor table");
+        try {
+            String s1 = "DROP TABLE manuscriptauthor";
+            pstmt = conn.prepareStatement(s1);
+            pstmt.executeUpdate();
+            System.out.println("ManuscriptAuthor table dropped");
         } catch (SQLException ex) {
         }
     }
@@ -270,6 +293,17 @@ public class JournalOperations {
             System.out.print("Problem with Affiliate Sequence " + ex.getMessage());
         }
     }
+    
+    public void createJournalSequence(){
+        try {
+            String createseq1 = "create sequence jid_seq increment by 1 start with 1";
+            pstmt = conn.prepareStatement(createseq1);
+            pstmt.executeUpdate();
+            System.out.println("Journal Sequence created");
+        } catch (SQLException ex) {
+            System.out.print("Problem with Journal Sequence " + ex.getMessage());
+        }
+    }
 
     public void createManuscriptTable() {
         try {
@@ -319,6 +353,24 @@ public class JournalOperations {
         } catch (SQLException ex) {
             System.out.println("SQL Exception creating "
                     + "Author table" + ex.getMessage());
+        }
+    }
+    
+    public void createManuscriptAuthorTable(){
+        try {
+            String sql = "create table manuscriptauthor("
+                    + "person_id number,"
+                    + "manuscript_id number,"
+                    + "Primary Key(person_id, manuscript_id),"
+                    + "foreign key(person_id) references author(person_id),"
+                    + "foreign key(manuscript_id) references manuscript(manuscript_id)"
+                    + ")";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("SQL Exception creating "
+                    + "ManuscriptAuthor table" + ex.getMessage());
         }
     }
 

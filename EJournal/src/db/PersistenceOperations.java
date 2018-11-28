@@ -11,7 +11,6 @@ import javax.persistence.*;
 
 import model.Affiliate;
 import model.Author;
-import model.Interest;
 import model.Journal;
 import model.Manuscript;
 import model.Person;

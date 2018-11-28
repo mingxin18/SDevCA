@@ -15,10 +15,19 @@ import javax.persistence.*;
  */
 @Entity
 @DiscriminatorValue(value = "Author")
-@PrimaryKeyJoinColumn(referencedColumnName = "personID")
+@PrimaryKeyJoinColumn(referencedColumnName = "person_ID")
 @SuppressWarnings("SerializableClass")
 
 public class Author extends Person {
 
+    
+    
+    
+    
+    
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "manuscriptauthor",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "manuscript_id"))
     private List<Manuscript> mlist= new ArrayList<>();
 }
