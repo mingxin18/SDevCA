@@ -28,14 +28,25 @@ public class PersistenceOperations {
         em = emf.createEntityManager();
     }
     
+    public void addManuscript(int authId, String title, Calender currDate){
+        
+    }
     
+    public void reviewManuscript(int revId, int manuId, Calendar currDate){
+        
+    }
     
+    public void addReview(int revId, int manuId, int revAppropriate, int revClarity, int revMethod, int revContribution, String revRecommendation, Calendar currDate){
+        
+    }
     
+    public void viewReviews(int manuId){
+        
+    }
     
-    
-    
-    
-    
+    public void accept(String x, Calender currDate){
+        
+    }
     
     
     
