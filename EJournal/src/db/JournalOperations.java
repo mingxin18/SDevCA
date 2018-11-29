@@ -37,16 +37,7 @@ public class JournalOperations {
         return conn;
     }
 
-    public void closeDB() {
-        try {
-            pstmt.close();
-            conn.close();
-            System.out.println("Connection closed");
-        } catch (SQLException ex) {
-            System.out.println("Could not close connection " + ex.getMessage());
-        }
-    }
-
+    
     public void dropSequences() {
         dropPersonSequence();
 //        dropReviewerSequence();
@@ -575,5 +566,16 @@ public class JournalOperations {
                     + "Person table" + ex.getMessage());
         }
     }
+    
+    public void closeDB() {
+        try {
+            pstmt.close();
+            conn.close();
+            System.out.println("Connection closed");
+        } catch (SQLException ex) {
+            System.out.println("Could not close connection " + ex.getMessage());
+        }
+    }
+
 
 }
