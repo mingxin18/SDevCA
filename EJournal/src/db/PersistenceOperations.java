@@ -6,6 +6,7 @@
 package db;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.*;
 
@@ -28,7 +29,7 @@ public class PersistenceOperations {
         em = emf.createEntityManager();
     }
     
-    public void addManuscript(int authId, String title, Calender currDate){
+    public void addManuscript(int authId, String title, Calendar currDate){
         
     }
     
@@ -44,7 +45,7 @@ public class PersistenceOperations {
         
     }
     
-    public void accept(String x, Calender currDate){
+    public void accept(String x, Calendar currDate){
         
     }
     

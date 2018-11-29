@@ -39,11 +39,11 @@ public class Affiliate {
     }
     
     public int getAffId(){
-        return id;
+        return affilID;
     }
     
     public void setAffId(int id){
-        return id = id;
+        this.affilID = id;
     }
     
     public String getName(){
