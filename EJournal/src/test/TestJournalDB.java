@@ -6,6 +6,7 @@
 package test;
 
 import db.JournalOperations;
+import db.PersistenceOperations;
 import java.util.Scanner;
 
 /**
