@@ -28,4 +28,58 @@ public class Affiliate {
     @OneToMany(mappedBy = "affil", cascade = CascadeType.ALL)
     private List<Person> plist= new ArrayList<>();
     
+    public Affiliate(){
+        
+    }
+    
+    public Affiliate(String name, String address, String email) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+    }
+    
+    public int getAffId(){
+        return id;
+    }
+    
+    public void setAffId(int id){
+        return id = id;
+    }
+    
+    public String getName(){
+        return name;
+    }
+    
+    public void getName(String name){
+        this.name = name;
+    }
+    
+    public String getAddress(){
+        return address;
+    }
+    
+    public void getaAdress(String address){
+        this.address = address;
+    }
+    
+    public String geEmail(){
+        return email;
+    }
+    
+    public void getEmail(String email){
+        this.email = email;
+    }
+    
+    public List<Person> getPlist() {
+        return plist;
+    }
+
+    public void setPlist(List<Person> plist) {
+        this.plist = plist;
+    }
+    
+    
+    
+    
+    
 }
