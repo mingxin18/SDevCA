@@ -39,7 +39,7 @@ public class TestJournalDB {
             System.out.println("Press 4 to see reviews of a manuscript.");
             System.out.println("Press 5 to accept/reject manuscript.");//Nested menu in here maybe?
             System.out.println("Press 6 to add a journal issue.");
-            System.out.println("Press 7 to schedule a manuscript for publication.");
+            System.out.println("Press 7 to schedule a manuscript for publication.");//adding manuscript to journal List
             System.out.println("Press 8 to publish an issue.");
             //Searching and viewing. Nested menu?
 //            System.out.println("Press 9 to view all authors of a manuscript.");
@@ -55,13 +55,9 @@ public class TestJournalDB {
 //            System.out.println("Press x to add an author.");
 //            System.out.println("Press x to add a reviewer.");
 //            System.out.println("Press x to add an affiliate.");
-//            System.out.println("Press x to add an interest.");
 //            System.out.println("Press x to remove an author.");
 //            System.out.println("Press x to remove a reviewer.");
 //            System.out.println("Press x to remove an affiliate.");
-//            System.out.println("Press x to remove an interest.");
-//            System.out.println("Press x to add an interest to a reviewer.");
-//            System.out.println("Press x to remove an interest to a reviewer.");
             
             //Exit
             System.out.println("Press 99 to exit.");
