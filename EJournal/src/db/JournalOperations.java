@@ -567,6 +567,10 @@ public class JournalOperations {
         }
     }
     
+    
+    
+
+    
     public void closeDB() {
         try {
             pstmt.close();
