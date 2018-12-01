@@ -245,7 +245,7 @@ public class TestJournalDB {
                                 break;
                         }
                     }
-                    break;
+                    break; //ERROR!!! Error Message: unreable statement
                 case 4:
                     jo.closeDB();
                     System.exit(0);
