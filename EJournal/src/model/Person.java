@@ -4,12 +4,15 @@
  * and open the template in the editor.
  */
 package model;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Person")
+
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "role")
+
 @SequenceGenerator(name = "pid_seq", initialValue = 1, allocationSize = 1)
 @SuppressWarnings("SerializableClass")
 /**
@@ -20,7 +23,7 @@ public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pid_seq")
-    @Column(name="person_id")
+    @Column(name = "person_id")
     private int personID;
     private String fname;
     private String lname;
@@ -29,13 +32,13 @@ public class Person {
     @ManyToOne()
     @JoinColumn(name = "affiliate_id")
     private Affiliate affil;
-    
-    public Person(){
-        
+
+    public Person() {
+
     }
 
     public Person(int personID) {
-        this.personID = personID;
+        
     }
 
     public Person(String fname, String lname, String address, String email) {
@@ -92,10 +95,5 @@ public class Person {
     public void setAffil(Affiliate affil) {
         this.affil = affil;
     }
-    
-    
-    
-    
-    
-    
+
 }

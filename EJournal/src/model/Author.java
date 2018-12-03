@@ -20,14 +20,30 @@ import javax.persistence.*;
 
 public class Author extends Person {
 
-    
-    
-    
-    
-    
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "manuscriptauthor",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "manuscript_id"))
-    private List<Manuscript> mlist= new ArrayList<>();
+    private List<Manuscript> mlist = new ArrayList<>();
+
+    public Author() {
+    }
+
+    
+
+    public Author(String fname, String lname, String address, String email) {
+        super(fname, lname, address, email);
+    }
+
+    public List<Manuscript> getMlist() {
+        return mlist;
+    }
+
+    public void setMlist(List<Manuscript> mlist) {
+        this.mlist = mlist;
+    }
+    
+    
+    
+    
 }
