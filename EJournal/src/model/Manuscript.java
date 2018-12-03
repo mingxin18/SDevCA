@@ -38,5 +38,8 @@ public class Manuscript {
 
     @ManyToMany(mappedBy = "mlist", cascade = CascadeType.PERSIST)
     private List<Author> alist = new ArrayList<>();
+    
+    @ManyToMany(mappedBy = "mlist", cascade = CascadeType.PERSIST)
+    private List<Reviewer> rlist = new ArrayList<>();
 
 }

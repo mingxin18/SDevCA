@@ -49,30 +49,24 @@ public class JournalOperations {
 
     public void dropSequences() {
         dropPersonSequence();
-//        dropReviewerSequence();
-//        dropAuthorSequence();
         dropManuscriptSequence();
         dropAffiliateSequence();
         dropJournalSequence();
     }
 
     public void dropTables() {
-//        dropReviewerInterestTable();
         dropManuscriptAuthorTable();
-//        dropManuscriptReviewTable();
+        dropManuscriptReviewTable();
         dropManuscriptTable();
         dropAuthorTable();
         dropReviewerTable();
         dropJournalTable();
-        dropInterestTable();
         dropPersonTable();
         dropAffiliateTable();
     }
 
     public void createSequences() {
         createPersonSequence();
-//        createReviewerSequence();
-//        createAuthorSequence();
         createManuscriptSequence();
         createAffiliateSequence();
         createJournalSequence();
@@ -85,10 +79,8 @@ public class JournalOperations {
         createAuthorTable();
         createJournalTable();
         createManuscriptTable();
-        createInterestTable();
-//        createReviewerInterestTable();
         createManuscriptAuthorTable();
-//        createManuscriptReviewTable();
+        createManuscriptReviewTable();
     }
 
     public void dropPersonSequence() {
@@ -101,25 +93,9 @@ public class JournalOperations {
         }
     }
 
-    public void dropReviewerSequence() {
-        try {
-            String s1 = "drop sequence rid_seq";
-            pstmt = conn.prepareStatement(s1);
-            pstmt.executeUpdate();
-            System.out.println("Reviewer Sequence dropped");
-        } catch (SQLException ex) {
-        }
-    }
+    
 
-    public void dropAuthorSequence() {
-        try {
-            String s1 = "drop sequence aid_seq";
-            pstmt = conn.prepareStatement(s1);
-            pstmt.executeUpdate();
-            System.out.println("Author Sequence dropped");
-        } catch (SQLException ex) {
-        }
-    }
+    
 
     public void dropManuscriptSequence() {
         try {
@@ -158,6 +134,17 @@ public class JournalOperations {
             pstmt = conn.prepareStatement(s1);
             pstmt.executeUpdate();
             System.out.println("Manuscript table dropped");
+        } catch (SQLException ex) {
+        }
+    }
+    
+    public void dropManuscriptReviewTable() {
+        System.out.println("Checking for existence of ManuscriptReview table");
+        try {
+            String s1 = "DROP TABLE ManuscriptReview";
+            pstmt = conn.prepareStatement(s1);
+            pstmt.executeUpdate();
+            System.out.println("ManuscriptReview table dropped");
         } catch (SQLException ex) {
         }
     }
@@ -206,16 +193,7 @@ public class JournalOperations {
         }
     }
 
-    public void dropInterestTable() {
-        System.out.println("Checking for existence of Interest table");
-        try {
-            String s1 = "DROP TABLE Interest";
-            pstmt = conn.prepareStatement(s1);
-            pstmt.executeUpdate();
-            System.out.println("Interest table dropped");
-        } catch (SQLException ex) {
-        }
-    }
+    
 
     public void dropAffiliateTable() {
         System.out.println("Checking for existence of Affiliate table");
@@ -250,27 +228,9 @@ public class JournalOperations {
         }
     }
 
-    public void createReviewerSequence() {
-        try {
-            String createseq1 = "create sequence rid_seq increment by 1 start with 1";
-            pstmt = conn.prepareStatement(createseq1);
-            pstmt.executeUpdate();
-            System.out.println("Reviewer Sequence created");
-        } catch (SQLException ex) {
-            System.out.print("Problem with Reviewer Sequence " + ex.getMessage());
-        }
-    }
+    
 
-    public void createAuthorSequence() {
-        try {
-            String createseq1 = "create sequence aid_seq increment by 1 start with 1";
-            pstmt = conn.prepareStatement(createseq1);
-            pstmt.executeUpdate();
-            System.out.println("Author Sequence created");
-        } catch (SQLException ex) {
-            System.out.print("Problem with Author Sequence " + ex.getMessage());
-        }
-    }
+    
 
     public void createManuscriptSequence() {
         try {
@@ -342,6 +302,29 @@ public class JournalOperations {
                     + "Reviewer table" + ex.getMessage());
         }
     }
+    
+    public void createManuscriptReviewTable() {
+        try {
+            String sql = "create table ManuscriptReview("
+                    + "person_id number, "
+                    + "manuscript_id number, "
+                    + "rate_approp number, "
+                    + "rate_clarity number, "
+                    + "rate_method number, "
+                    + "rate_contribution number, "
+                    + "recommendation varchar2(10), "
+                    + "Primary Key (person_id, manuscript_id), "
+                    + "foreign key (person_id) references reviewer (person_id), "
+                    + "foreign key manuscript_id) references manuscript (manuscript_id) "
+                    + ")";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("SQL Exception creating "
+                    + "Reviewer table" + ex.getMessage());
+        }
+    }
 
     public void createAuthorTable() {
         try {
@@ -397,26 +380,7 @@ public class JournalOperations {
         }
     }
 
-    public void createInterestTable() {
-        try {
-            String sql = "create table Interest("
-                    + "IS_Code varchar2(255) NOT NULL,"
-                    + "description varchar2(255)"
-                    + "CONSTRAINT check_desc CHECK(description = 'Computing' "
-                    + "OR description = 'Engineering' "
-                    + "OR description = 'Science' "
-                    + "OR description = 'Business' "
-                    + "OR description = 'Information Technology'),"
-                    + "primary key (IS_Code))";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.executeUpdate();
-
-        } catch (SQLException ex) {
-            System.out.println("SQL Exception creating "
-                    + "Reviewer table" + ex.getMessage());
-        }
-    }
-
+    
     public void createAffiliateTable() {
         try {
             String sql = "create table Affiliate("
