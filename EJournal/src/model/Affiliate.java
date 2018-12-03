@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.util.ArrayList;
@@ -21,6 +16,7 @@ import javax.persistence.*;
 public class Affiliate {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="afid_seq")
+    @Column(name="affiliate_id")
     private int affiliate_id;
     private String affiliate_name;
     private String contact_address;
@@ -32,8 +28,7 @@ public class Affiliate {
         
     }
 
-    public Affiliate(int affiliate_id, String affiliate_name, String contact_address, String contact_email) {
-        this.affiliate_id = affiliate_id;
+    public Affiliate(String affiliate_name, String contact_address, String contact_email) {
         this.affiliate_name = affiliate_name;
         this.contact_address = contact_address;
         this.contact_email = contact_email;

@@ -3,14 +3,16 @@
   <persistence-unit name="EJournalPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>model.Affiliate</class>
-    <class>model.Author</class>
+    <class>model.Manuscript</class>
+    <class>model.Journal</class>
     <class>model.Person</class>
+    <class>model.Author</class>
     <class>model.Reviewer</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@//10.10.2.7:1521/global1"/>
-      <property name="javax.persistence.jdbc.user" value="x00149930"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+      <property name="javax.persistence.jdbc.user" value="hr"/>
       <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
-      <property name="javax.persistence.jdbc.password" value=""/>
+      <property name="javax.persistence.jdbc.password" value="passhr"/>
     </properties>
   </persistence-unit>
 </persistence>

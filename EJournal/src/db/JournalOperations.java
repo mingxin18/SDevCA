@@ -427,7 +427,7 @@ public class JournalOperations {
 
     public void fillAffiliateTable() {
         try {
-            String sql = "INSERT INTO affiliate VALUES(jid_seq.nextVal,?,?,?)";
+            String sql = "INSERT INTO affiliate VALUES(afid_seq.nextVal,?,?,?)";
             pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, "IT Tallaght");
@@ -453,7 +453,7 @@ public class JournalOperations {
 
     public void fillJournalTable() {
         try {
-            String sql = "INSERT INTO journal VALUES(afid_seq.nextVal,?,?,?,?,?)";
+            String sql = "INSERT INTO journal VALUES(jid_seq.nextVal,?,?,?,?,?)";
             pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, "Spring");

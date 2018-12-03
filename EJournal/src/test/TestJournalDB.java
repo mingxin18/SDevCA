@@ -6,6 +6,7 @@
 package test;
 
 import db.JournalOperations;
+import db.PersistenceOperations;
 import java.util.Scanner;
 
 /**
@@ -17,6 +18,7 @@ public class TestJournalDB {
     public static void main(String[] args) {
         
         JournalOperations jo = new JournalOperations();
+        PersistenceOperations po = new PersistenceOperations();
         
         jo.openDB();
         jo.dropSequences();
@@ -43,6 +45,7 @@ public class TestJournalDB {
             System.out.println("Press 6 to add a journal issue.");
             System.out.println("Press 7 to schedule a manuscript for publication.");
             System.out.println("Press 8 to publish an issue.");
+
             //Searching and viewing. Nested menu?
 //            System.out.println("Press 9 to view all authors of a manuscript.");
 //            System.out.println("Press 10 to view all manuscripts in a published journal issue.");
@@ -77,11 +80,12 @@ public class TestJournalDB {
                     System.out.println("Please enter how many authors have contributed to this manuscript: ");
                     int authNum = in.nextInt();
                     in.nextLine();
+//                    po.addManuscript(title,currentDate);
                     for (int i = 0; i < authNum; i++) {
                         System.out.println("Please enter ID of author " + (i + 1) + " of manuscript: ");
                         int authID = in.nextInt();
                         in.nextLine();
-//                        po.addManuscript(authID,title,currentDate);
+//                        po.assignAuthorToManuscript(authID,);//Find way to get latest manuscript added, use that id.
                     }
                     //Change to 'received'
                     break;
@@ -168,6 +172,15 @@ public class TestJournalDB {
                     in.nextLine();
 //                    po.accept(x,currentDate);
                     //Should change to 'accepted' or 'rejected'
+                    break;
+                case 9:
+                    System.out.println("Please enter the name of the affilate you want to add.");
+                    String name = in.nextLine();
+                    System.out.println("Please enter the address.");
+                    String address = in.nextLine();
+                    System.out.println("Please enter the email.");
+                    String email = in.nextLine();
+                    po.addAffil(name, address, email);
                     break;
                 case 99:
                     jo.closeDB();

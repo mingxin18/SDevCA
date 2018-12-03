@@ -14,6 +14,12 @@ import javax.persistence.*;
  *
  * @author Kevin
  */
+
+@Entity
+@Table(name = "Journal")
+
+@SequenceGenerator(name = "jid_seq", initialValue = 1, allocationSize = 1)
+@SuppressWarnings("SerializableClass")
 public class Journal {
     
     @Id
@@ -25,6 +31,8 @@ public class Journal {
     private int pub_year;
     private int pub_volume;
     private int pub_number;
+    
+    @Temporal(TemporalType.DATE)
     private Calendar pub_date;
             
     

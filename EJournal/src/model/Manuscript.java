@@ -26,10 +26,11 @@ public class Manuscript {
             generator = "mid_seq")
     @Column(name = "Manuscript_id")
     private int manuscriptID;
-
     private String manuscript_title;
     private String manuscript_status;
+    @Temporal(TemporalType.DATE)
     private Calendar received_date;
+    @Temporal(TemporalType.DATE)
     private Calendar acceptance_date;
 
     @ManyToOne()
@@ -42,4 +43,83 @@ public class Manuscript {
     @ManyToMany(mappedBy = "mlist", cascade = CascadeType.PERSIST)
     private List<Reviewer> rlist = new ArrayList<>();
 
+    public Manuscript(String manuscript_title) {
+        this.manuscript_title = manuscript_title;
+        this.manuscript_status = "received";
+//        this.received_date = today;
+    }
+    
+    public void addAuthor(Author a){
+        this.alist.add(a);
+        a.getMlist().add(this);
+    }
+
+    public int getManuscriptID() {
+        return manuscriptID;
+    }
+
+    public void setManuscriptID(int manuscriptID) {
+        this.manuscriptID = manuscriptID;
+    }
+
+    public String getManuscript_title() {
+        return manuscript_title;
+    }
+
+    public void setManuscript_title(String manuscript_title) {
+        this.manuscript_title = manuscript_title;
+    }
+
+    public String getManuscript_status() {
+        return manuscript_status;
+    }
+
+    public void setManuscript_status(String manuscript_status) {
+        this.manuscript_status = manuscript_status;
+    }
+
+    public Calendar getReceived_date() {
+        return received_date;
+    }
+
+    public void setReceived_date(Calendar received_date) {
+        this.received_date = received_date;
+    }
+
+    public Calendar getAcceptance_date() {
+        return acceptance_date;
+    }
+
+    public void setAcceptance_date(Calendar acceptance_date) {
+        this.acceptance_date = acceptance_date;
+    }
+
+    public Journal getJournal() {
+        return journal;
+    }
+
+    public void setJournal(Journal journal) {
+        this.journal = journal;
+    }
+
+    public List<Author> getAlist() {
+        return alist;
+    }
+
+    public void setAlist(List<Author> alist) {
+        this.alist = alist;
+    }
+
+    public List<Reviewer> getRlist() {
+        return rlist;
+    }
+
+    public void setRlist(List<Reviewer> rlist) {
+        this.rlist = rlist;
+    }
+    
+    
+
+    
+    
 }
