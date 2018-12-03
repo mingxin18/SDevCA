@@ -27,6 +27,9 @@ public class TestJournalDB {
         jo.fillAffiliateTable();
         jo.fillJournalTable();
         jo.fillPersonTable();
+        jo.fillManuscriptTable();
+        jo.fillManuscriptAuthorTable();
+        jo.fillManuscriptReviewTable();
         
         Scanner in = new Scanner(System.in);
 
