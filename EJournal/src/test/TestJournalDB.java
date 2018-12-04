@@ -49,10 +49,10 @@ public class TestJournalDB {
             System.out.println("Press 9 to publish an issue.");
 
             //Searching and viewing. Nested menu?
-//            System.out.println("Press 16 to view all authors of a manuscript.");
-//            System.out.println("Press 17 to view all manuscripts in a published journal issue.");
-//            System.out.println("Press 18 to see all details on a manuscript.");
-//            System.out.println("Press 19 to see all details on a journal issue.");
+           System.out.println("Press 16 to view all authors of a manuscript.");
+           System.out.println("Press 17 to view all manuscripts in a published journal issue.");
+           System.out.println("Press 18 to see all details on a manuscript.");
+           System.out.println("Press 19 to see all details on a journal issue.");
             //Admin, adding and removing entities. Nested Menu?
             System.out.println("Press 11 to add an author/reviewer.");
             System.out.println("Press 12 to add an affiliate.");
