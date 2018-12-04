@@ -1,7 +1,13 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package db;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import oracle.jdbc.pool.OracleDataSource;
 
 /**
@@ -33,33 +39,36 @@ public class JournalOperations {
         return conn;
     }
 
-    
+    public void closeDB() {
+        try {
+            pstmt.close();
+            conn.close();
+            System.out.println("Connection closed");
+        } catch (SQLException ex) {
+            System.out.println("Could not close connection " + ex.getMessage());
+        }
+    }
+
     public void dropSequences() {
         dropPersonSequence();
-//        dropReviewerSequence();
-//        dropAuthorSequence();
         dropManuscriptSequence();
         dropAffiliateSequence();
         dropJournalSequence();
     }
 
     public void dropTables() {
-//        dropReviewerInterestTable();
         dropManuscriptAuthorTable();
-//        dropManuscriptReviewTable();
+        dropManuscriptReviewTable();
         dropManuscriptTable();
         dropAuthorTable();
         dropReviewerTable();
         dropJournalTable();
-        dropInterestTable();
         dropPersonTable();
         dropAffiliateTable();
     }
 
     public void createSequences() {
         createPersonSequence();
-//        createReviewerSequence();
-//        createAuthorSequence();
         createManuscriptSequence();
         createAffiliateSequence();
         createJournalSequence();
@@ -72,10 +81,17 @@ public class JournalOperations {
         createAuthorTable();
         createJournalTable();
         createManuscriptTable();
-        createInterestTable();
-//        createReviewerInterestTable();
         createManuscriptAuthorTable();
-//        createManuscriptReviewTable();
+        createManuscriptReviewTable();
+    }
+
+    public void fillTables() {
+        fillAffiliateTable();
+        fillPersonTable();
+        fillJournalTable();
+        fillManuscriptTable();
+        fillManuscriptAuthorTable();
+        fillManuscriptReviewTable();
     }
 
     public void dropPersonSequence() {
@@ -84,26 +100,6 @@ public class JournalOperations {
             pstmt = conn.prepareStatement(s1);
             pstmt.executeUpdate();
             System.out.println("Person Sequence dropped");
-        } catch (SQLException ex) {
-        }
-    }
-
-    public void dropReviewerSequence() {
-        try {
-            String s1 = "drop sequence rid_seq";
-            pstmt = conn.prepareStatement(s1);
-            pstmt.executeUpdate();
-            System.out.println("Reviewer Sequence dropped");
-        } catch (SQLException ex) {
-        }
-    }
-
-    public void dropAuthorSequence() {
-        try {
-            String s1 = "drop sequence aid_seq";
-            pstmt = conn.prepareStatement(s1);
-            pstmt.executeUpdate();
-            System.out.println("Author Sequence dropped");
         } catch (SQLException ex) {
         }
     }
@@ -145,6 +141,17 @@ public class JournalOperations {
             pstmt = conn.prepareStatement(s1);
             pstmt.executeUpdate();
             System.out.println("Manuscript table dropped");
+        } catch (SQLException ex) {
+        }
+    }
+
+    public void dropManuscriptReviewTable() {
+        System.out.println("Checking for existence of ManuscriptReview table");
+        try {
+            String s1 = "DROP TABLE ManuscriptReview";
+            pstmt = conn.prepareStatement(s1);
+            pstmt.executeUpdate();
+            System.out.println("ManuscriptReview table dropped");
         } catch (SQLException ex) {
         }
     }
@@ -193,17 +200,6 @@ public class JournalOperations {
         }
     }
 
-    public void dropInterestTable() {
-        System.out.println("Checking for existence of Interest table");
-        try {
-            String s1 = "DROP TABLE Interest";
-            pstmt = conn.prepareStatement(s1);
-            pstmt.executeUpdate();
-            System.out.println("Interest table dropped");
-        } catch (SQLException ex) {
-        }
-    }
-
     public void dropAffiliateTable() {
         System.out.println("Checking for existence of Affiliate table");
         try {
@@ -234,28 +230,6 @@ public class JournalOperations {
             System.out.println("Person Sequence created");
         } catch (SQLException ex) {
             System.out.println("Problem with Person Sequence " + ex.getMessage());
-        }
-    }
-
-    public void createReviewerSequence() {
-        try {
-            String createseq1 = "create sequence rid_seq increment by 1 start with 1";
-            pstmt = conn.prepareStatement(createseq1);
-            pstmt.executeUpdate();
-            System.out.println("Reviewer Sequence created");
-        } catch (SQLException ex) {
-            System.out.print("Problem with Reviewer Sequence " + ex.getMessage());
-        }
-    }
-
-    public void createAuthorSequence() {
-        try {
-            String createseq1 = "create sequence aid_seq increment by 1 start with 1";
-            pstmt = conn.prepareStatement(createseq1);
-            pstmt.executeUpdate();
-            System.out.println("Author Sequence created");
-        } catch (SQLException ex) {
-            System.out.print("Problem with Author Sequence " + ex.getMessage());
         }
     }
 
@@ -304,7 +278,7 @@ public class JournalOperations {
                     + "CONSTRAINT check_status CHECK (manuscript_status='received' "
                     + "OR manuscript_status='accepted' "
                     + "OR manuscript_status='rejected' "
-                    + "OR manuscript_status='under review' "
+                    + "OR manuscript_status='under_review' "
                     + "OR manuscript_status='scheduled' "
                     + "OR manuscript_status='published'),"
                     + "foreign key (journal_id) references Journal(journal_id) ON DELETE SET NULL)";
@@ -319,8 +293,11 @@ public class JournalOperations {
 
     public void createReviewerTable() {
         try {
-            String sql = "create table reviewer("
-                    + "person_id number PRIMARY KEY NOT NULL)";
+            String sql = "create table reviewer ( "
+                    + "person_id number, "
+                    + "primary key (person_id), "
+                    + "foreign key (person_id) references person(person_id)"
+                    + ")";
             pstmt = conn.prepareStatement(sql);
             pstmt.executeUpdate();
 
@@ -330,10 +307,36 @@ public class JournalOperations {
         }
     }
 
+    public void createManuscriptReviewTable() {
+        try {
+            String sql = "create table ManuscriptReview ( "
+                    + "person_id number, "
+                    + "manuscript_id number, "
+                    + "rate_approp number, "
+                    + "rate_clarity number, "
+                    + "rate_method number, "
+                    + "rate_contribution number, "
+                    + "recommendation varchar2(10), "
+                    + "Primary Key (person_id, manuscript_id), "
+                    + "foreign key (person_id) references reviewer (person_id), "
+                    + "foreign key (manuscript_id) references manuscript (manuscript_id) "
+                    + ")";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("SQL Exception creating "
+                    + "ManuscriptReview table" + ex.getMessage());
+        }
+    }
+
     public void createAuthorTable() {
         try {
-            String sql = "create table author("
-                    + "person_id number PRIMARY KEY NOT NULL)";
+            String sql = "create table author ( "
+                    + "person_id number, "
+                    + "primary key (person_id), "
+                    + "foreign key (person_id) references person(person_id)"
+                    + ")";
             pstmt = conn.prepareStatement(sql);
             pstmt.executeUpdate();
 
@@ -370,10 +373,10 @@ public class JournalOperations {
                     + "pub_volume number,"
                     + "pub_number number,"
                     + "pub_date date,"
-                    + "CONSTRAINT check_period CHECK(pub_period = 'Spring' "
-                    + "OR pub_period = 'Summer' "
-                    + "OR pub_period = 'Fall' "
-                    + "OR pub_period = 'Winter'),"
+                    + "CONSTRAINT check_period CHECK(pub_period = 'spring' "
+                    + "OR pub_period = 'summer' "
+                    + "OR pub_period = 'fall' "
+                    + "OR pub_period = 'winter'),"
                     + "primary key(journal_id))";
             pstmt = conn.prepareStatement(sql);
             pstmt.executeUpdate();
@@ -381,26 +384,6 @@ public class JournalOperations {
         } catch (SQLException ex) {
             System.out.println("SQL Exception creating "
                     + "Journal table" + ex.getMessage());
-        }
-    }
-
-    public void createInterestTable() {
-        try {
-            String sql = "create table Interest("
-                    + "IS_Code varchar2(255) NOT NULL,"
-                    + "description varchar2(255)"
-                    + "CONSTRAINT check_desc CHECK(description = 'Computing' "
-                    + "OR description = 'Engineering' "
-                    + "OR description = 'Science' "
-                    + "OR description = 'Business' "
-                    + "OR description = 'Information Technology'),"
-                    + "primary key (IS_Code))";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.executeUpdate();
-
-        } catch (SQLException ex) {
-            System.out.println("SQL Exception creating "
-                    + "Reviewer table" + ex.getMessage());
         }
     }
 
@@ -444,7 +427,7 @@ public class JournalOperations {
 
     public void fillAffiliateTable() {
         try {
-            String sql = "INSERT INTO affiliate VALUES(jid_seq.nextVal,?,?,?)";
+            String sql = "INSERT INTO affiliate VALUES(afid_seq.nextVal,?,?,?)";
             pstmt = conn.prepareStatement(sql);
 
             pstmt.setString(1, "IT Tallaght");
@@ -470,31 +453,31 @@ public class JournalOperations {
 
     public void fillJournalTable() {
         try {
-            String sql = "INSERT INTO journal VALUES(afid_seq.nextVal,?,?,?,?,?)";
+            String sql = "INSERT INTO journal VALUES(jid_seq.nextVal,?,?,?,?,?)";
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1, "Spring");
+            pstmt.setString(1, "spring");
             pstmt.setInt(2, 2018);
             pstmt.setInt(3, 1);
             pstmt.setInt(4, 1);
             pstmt.setDate(5, Date.valueOf("2018-01-20"));
             pstmt.executeUpdate();
 
-            pstmt.setString(1, "Summer");
+            pstmt.setString(1, "summer");
             pstmt.setInt(2, 2018);
             pstmt.setInt(3, 1);
             pstmt.setInt(4, 2);
             pstmt.setDate(5, Date.valueOf("2018-04-20"));
             pstmt.executeUpdate();
 
-            pstmt.setString(1, "Fall");
+            pstmt.setString(1, "fall");
             pstmt.setInt(2, 2018);
             pstmt.setInt(3, 1);
             pstmt.setInt(4, 3);
             pstmt.setDate(5, Date.valueOf("2018-07-20"));
             pstmt.executeUpdate();
 
-            pstmt.setString(1, "Winter");
+            pstmt.setString(1, "winter");
             pstmt.setInt(2, 2018);
             pstmt.setInt(3, 1);
             pstmt.setInt(4, 4);
@@ -516,42 +499,42 @@ public class JournalOperations {
             String sqlperson1 = "INSERT INTO Person VALUES "
                     + "(pid_seq.nextVal,'John','Smith','2 Grafton St.','john.smith@gmail.com',1,'Author')";
             stmt.executeUpdate(sqlperson1);
-            
+
             String sqlauthor1 = "INSERT INTO Author VALUES (pid_seq.currVal)";
             stmt.executeUpdate(sqlauthor1);
 
             String sqlperson2 = "INSERT INTO Person VALUES "
                     + "(pid_seq.nextVal,'Elaina','Blake','7 Grafton St.','elaina.blake@gmail.com',2,'Author')";
             stmt.executeUpdate(sqlperson2);
-            
+
             String sqlauthor2 = "INSERT INTO Author VALUES (pid_seq.currVal)";
             stmt.executeUpdate(sqlauthor2);
 
             String sqlperson3 = "INSERT INTO Person VALUES "
                     + "(pid_seq.nextVal,'Jayce','Barron','17 Grafton St.','jayce.thompson@gmail.com',3,'Author')";
             stmt.executeUpdate(sqlperson3);
-            
+
             String sqlauthor3 = "INSERT INTO Author VALUES (pid_seq.currVal)";
             stmt.executeUpdate(sqlauthor3);
 
             String sqlperson4 = "INSERT INTO Person VALUES "
                     + "(pid_seq.nextVal,'Logan','Thompson','45 Grafton St.','logan.thompson@gmail.com',1,'Reviewer')";
             stmt.executeUpdate(sqlperson4);
-            
+
             String sqlreviewer1 = "INSERT INTO Reviewer VALUES (pid_seq.currVal)";
             stmt.executeUpdate(sqlreviewer1);
 
             String sqlperson5 = "INSERT INTO Person VALUES "
                     + "(pid_seq.nextVal,'Lydia','Stout','3 Grafton St.','lydia.stout@gmail.com',2,'Reviewer')";
             stmt.executeUpdate(sqlperson5);
-            
+
             String sqlreviewer2 = "INSERT INTO Reviewer VALUES (pid_seq.currVal)";
             stmt.executeUpdate(sqlreviewer2);
 
             String sqlperson6 = "INSERT INTO Person VALUES "
                     + "(pid_seq.nextVal,'Brent','Graves','14 Grafton St.','brent.graves@gmail.com',3,'Reviewer')";
             stmt.executeUpdate(sqlperson6);
-            
+
             String sqlreviewer3 = "INSERT INTO Reviewer VALUES (pid_seq.currVal)";
             stmt.executeUpdate(sqlreviewer3);
 
@@ -562,20 +545,70 @@ public class JournalOperations {
                     + "Person table" + ex.getMessage());
         }
     }
-    
-    
-    
 
-    
-    public void closeDB() {
+    public void fillManuscriptTable() {
+        Statement stmt;
         try {
-            pstmt.close();
-            conn.close();
-            System.out.println("Connection closed");
+            stmt = conn.createStatement();
+
+            String sqlm1 = "insert into manuscript values(mid_seq.nextVal,'Medicine is Good, how to make it Better',TO_DATE('2015/02/13','yyyy/mm/dd'),'accepted',TO_DATE('2016/02/13','yyyy/mm/dd'),NULL)";
+            stmt.executeUpdate(sqlm1);
+
+            String sqlm2 = "insert into manuscript values(mid_seq.nextVal,'How to design and build bridges for cheap',TO_DATE('2015/11/03','yyyy/mm/dd'),'rejected',NULL,NULL)";
+            stmt.executeUpdate(sqlm2);
+
+            String sqlm3 = "insert into manuscript values(mid_seq.nextVal,'Cooking for a crowd',TO_DATE('2017/11/03','yyyy/mm/dd'),'rejected',NULL,NULL)";
+            stmt.executeUpdate(sqlm3);
+
+            String sqlm4 = "insert into manuscript values(mid_seq.nextVal,'Software Testing in a Business Environment',TO_DATE('2016/02/13','yyyy/mm/dd'),'published',TO_DATE('2017/02/13','yyyy/mm/dd'),1)";
+            stmt.executeUpdate(sqlm4);
+
         } catch (SQLException ex) {
-            System.out.println("Could not close connection " + ex.getMessage());
+            System.out.println("Error in fillManuscriptTable: " + ex.getMessage());;
         }
     }
 
+    public void fillManuscriptAuthorTable() {
+        Statement stmt;
+        try {
+            stmt = conn.createStatement();
 
+            String sqlma1 = "insert into manuscriptauthor values(1,1)";
+            stmt.executeUpdate(sqlma1);
+
+            String sqlma2 = "insert into manuscriptauthor values(2,2)";
+            stmt.executeUpdate(sqlma2);
+
+            String sqlma3 = "insert into manuscriptauthor values(3,3)";
+            stmt.executeUpdate(sqlma3);
+
+            String sqlma4 = "insert into manuscriptauthor values(1,4)";
+            stmt.executeUpdate(sqlma4);
+
+        } catch (SQLException ex) {
+            System.out.println("Error in fillManuscriptAuthorTable: " + ex.getMessage());;
+        }
+    }
+    
+    public void fillManuscriptReviewTable(){
+        Statement stmt;
+        try{
+            stmt = conn.createStatement();
+            
+            String sqlmr1 = "insert into manuscriptreview values(4,1,6,6,6,6,'accept')";
+            stmt.executeUpdate(sqlmr1);
+            
+            String sqlmr2 = "insert into manuscriptreview values(5,2,2,3,4,1,'reject')";
+            stmt.executeUpdate(sqlmr2);
+            
+            String sqlmr3 = "insert into manuscriptreview values(6,3,1,4,5,2,'reject')";
+            stmt.executeUpdate(sqlmr3);
+            
+            String sqlmr4 = "insert into manuscriptreview values(4,4,7,8,6,9,'accept')";
+            stmt.executeUpdate(sqlmr4);
+            
+        } catch (SQLException ex) {
+            System.out.println("Error in fillManuscriptReviewTable: "+ex.getMessage());
+        }
+    }
 }

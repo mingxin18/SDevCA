@@ -15,12 +15,33 @@ import javax.persistence.*;
  */
 @Entity
 @DiscriminatorValue(value = "Reviewer")
-@PrimaryKeyJoinColumn(referencedColumnName = "person_ID")
+@PrimaryKeyJoinColumn(referencedColumnName = "person_id")
 @SuppressWarnings("SerializableClass")
 
 public class Reviewer extends Person {
 
     
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "ManuscriptReview",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "manuscript_id"))
     private List<Manuscript> mlist= new ArrayList<>();
+
+    public Reviewer() {
+    }
+
+    public Reviewer(String fname, String lname, String address, String email) {
+        super(fname, lname, address, email);
+    }
+
+    public List<Manuscript> getMlist() {
+        return mlist;
+    }
+
+    public void setMlist(List<Manuscript> mlist) {
+        this.mlist = mlist;
+    }
+    
+    
 
 }
