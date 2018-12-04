@@ -78,6 +78,14 @@ public class PersistenceOperations {
         m.setManuscript_status("under_review");
         em.getTransaction().commit();
     }
+    
+    public void scheduleManuscriptToJournal(int man_id, int journal_id){
+        em.getTransaction().begin();
+        Manuscript m = findManuscript(man_id);
+        Journal j = findJournal(journal_id);
+        j.scheduleManuscript(m);
+        em.getTransaction().commit();
+    }
 
     public Person findPerson(int id) {
         Person p = em.find(Person.class, id);
@@ -93,6 +101,14 @@ public class PersistenceOperations {
             System.out.println("Manuscript Not Found");
         }
         return m;
+    }
+    
+    public Journal findJournal(int id){
+        Journal j = em.find(Journal.class, id);
+        if (j == null) {
+            System.out.println("Journal Not Found");
+        }
+        return j;
     }
 
     public void accept(int manuID) {

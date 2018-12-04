@@ -47,6 +47,60 @@ public class Journal {
         this.pub_volume = pub_volume;
         this.pub_number = pub_number;
     }
+
+    public String getPub_period() {
+        return pub_period;
+    }
+
+    public void setPub_period(String pub_period) {
+        this.pub_period = pub_period;
+    }
+
+    public int getPub_year() {
+        return pub_year;
+    }
+
+    public void setPub_year(int pub_year) {
+        this.pub_year = pub_year;
+    }
+
+    public int getPub_volume() {
+        return pub_volume;
+    }
+
+    public void setPub_volume(int pub_volume) {
+        this.pub_volume = pub_volume;
+    }
+
+    public int getPub_number() {
+        return pub_number;
+    }
+
+    public void setPub_number(int pub_number) {
+        this.pub_number = pub_number;
+    }
+
+    public Calendar getPub_date() {
+        return pub_date;
+    }
+
+    public void setPub_date(Calendar pub_date) {
+        this.pub_date = pub_date;
+    }
+
+    public List<Manuscript> getMlist() {
+        return mlist;
+    }
+
+    public void setMlist(List<Manuscript> mlist) {
+        this.mlist = mlist;
+    }
+    
+    public void scheduleManuscript(Manuscript m){
+        mlist.add(m);
+        m.setManuscript_status("scheduled");
+        m.setJournal(this);
+    }
     
     
 }

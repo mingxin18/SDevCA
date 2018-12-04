@@ -54,11 +54,11 @@ public class TestJournalDB {
 //            System.out.println("Press 13 to see all details on a manuscript.");
 //            System.out.println("Press 16 to see all details on a journal issue.");
             //Admin, adding and removing entities. Nested Menu?
-            System.out.println("Press x to add an author/reviewer.");
-            System.out.println("Press x to add an affiliate.");
-            System.out.println("Press x to remove an author.");
-            System.out.println("Press x to remove a reviewer.");
-            System.out.println("Press x to remove an affiliate.");
+            System.out.println("Press 11 to add an author/reviewer.");
+            System.out.println("Press 12 to add an affiliate.");
+            System.out.println("Press 13 to remove a person.");
+            System.out.println("Press 14 to remove an affiliate.");
+            System.out.println("Press 15 to remove a journal.");
 
             //Exit
             System.out.println("Press 99 to exit.");
@@ -177,11 +177,11 @@ public class TestJournalDB {
                 case 7:
                     System.out.println("Please enter publication period (spring,summer,fall,winter):");
                     String pubPeriod = in.nextLine();
-                    if (!(pubPeriod.equalsIgnoreCase("spring")||pubPeriod.equalsIgnoreCase("summer")||pubPeriod.equalsIgnoreCase("fall")||pubPeriod.equalsIgnoreCase("winter"))) {
-                        do{
+                    if (!(pubPeriod.equalsIgnoreCase("spring") || pubPeriod.equalsIgnoreCase("summer") || pubPeriod.equalsIgnoreCase("fall") || pubPeriod.equalsIgnoreCase("winter"))) {
+                        do {
                             System.out.println("Invalid publication perdiod. Please enter valid selection (spring,summer,fall,winter):");
                             pubPeriod = in.nextLine();
-                        }while(!(pubPeriod.equalsIgnoreCase("spring")||pubPeriod.equalsIgnoreCase("summer")||pubPeriod.equalsIgnoreCase("fall")||pubPeriod.equalsIgnoreCase("winter")));
+                        } while (!(pubPeriod.equalsIgnoreCase("spring") || pubPeriod.equalsIgnoreCase("summer") || pubPeriod.equalsIgnoreCase("fall") || pubPeriod.equalsIgnoreCase("winter")));
                     }
                     System.out.println("Please enter publication year:");
                     int pubYear = in.nextInt();
@@ -189,18 +189,20 @@ public class TestJournalDB {
                     int pubVolume = in.nextInt();
                     System.out.println("Please enter publication number:");
                     int pubNumber = in.nextInt();
-                    Journal j = new Journal(pubPeriod,pubYear,pubVolume,pubNumber);
+                    Journal j = new Journal(pubPeriod, pubYear, pubVolume, pubNumber);
                     po.addJournalIssue(j);
                     break;
-                case 9:
-                    System.out.println("Please enter the name of the affilate you want to add.");
-                    String name = in.nextLine();
-                    System.out.println("Please enter the address.");
-                    String address = in.nextLine();
-                    System.out.println("Please enter the email.");
-                    String email = in.nextLine();
-                    Affiliate affil = new Affiliate(name, address, email);
-                    po.addAffil(affil);
+                case 8:
+                    System.out.println("Please enter the journal id you wish to schedule for.");
+                    int journalID = in.nextInt();
+                    in.nextLine();
+                    System.out.println("How many manuscripts would you like to schedule for publication in this journal?");
+                    int numManuscripts = in.nextInt();
+                    for (int i = 0; i < numManuscripts; i++) {
+                        System.out.println("Please enter the id of manuscript " + (i + 1) + ":");
+                        manuID = in.nextInt();
+                        po.scheduleManuscriptToJournal(manuID, journalID);
+                    }
                     break;
                 case 10:
                     System.out.println("Please enter the first name of the person you would like to add.");
@@ -208,9 +210,9 @@ public class TestJournalDB {
                     System.out.println("Please enter the surname of the person you would like to add.");
                     String lname = in.nextLine();
                     System.out.println("Please enter the address.");
-                    address = in.nextLine();
+                    String address = in.nextLine();
                     System.out.println("Please enter their email.");
-                    email = in.nextLine();
+                    String email = in.nextLine();
                     System.out.println("Please enter their role(author/reviewer): ");
                     String role = in.nextLine();
                     if (!(role.equalsIgnoreCase("author") || role.equalsIgnoreCase("reviewer"))) {
@@ -227,6 +229,16 @@ public class TestJournalDB {
                         Reviewer reviewer = new Reviewer(fname, lname, address, email);
                         po.addReviewer(reviewer);
                     }
+                    break;
+                case 11:
+                    System.out.println("Please enter the name of the affilate you want to add.");
+                    String name = in.nextLine();
+                    System.out.println("Please enter the address.");
+                    address = in.nextLine();
+                    System.out.println("Please enter the email.");
+                    email = in.nextLine();
+                    Affiliate affil = new Affiliate(name, address, email);
+                    po.addAffil(affil);
                     break;
                 case 99:
                     po.close();
