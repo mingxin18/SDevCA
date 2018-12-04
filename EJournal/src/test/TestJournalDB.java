@@ -28,16 +28,53 @@ public class TestJournalDB {
         jo.createTables();
         jo.fillTables();
 
-//        jo.fillAffiliateTable();
-//        jo.fillJournalTable();
-//        jo.fillPersonTable();
-//        jo.fillManuscriptTable();
-//        jo.fillManuscriptAuthorTable();
-//        jo.fillManuscriptReviewTable();
         Scanner in = new Scanner(System.in);
 
         while (true) {
-            System.out.println("TEST MENU");
+            System.out.println("Main Menu");
+            System.out.println("Press 1 to enter Journal Menu.");
+            System.out.println("Press 2 to enter Viewing Menu.");
+            System.out.println("Press 3 to enter Admin Menu.");
+            System.out.println("Press 9 to exit.");
+
+//            Viewing Menu
+//            System.out.println("Press 9 to view all authors of a manuscript.");
+//            System.out.println("Press 10 to view all manuscripts in a published journal issue.");
+//            System.out.println("Press 13 to see all details on a manuscript.");
+//            System.out.println("Press 16 to see all details on a journal issue.");
+            
+
+            int choice = in.nextInt();
+            in.nextLine();
+            switch (choice) {
+                case 1:
+                    journalMenu();
+                    break;
+                case 2:
+//                    viewingMenu();
+                    break;
+                case 3:
+                    adminMenu();
+                    break;
+                case 9:
+                    po.close();
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid option entered.");
+                    break;
+            }
+
+        }
+
+    }
+
+    public static void journalMenu() {
+        Scanner in = new Scanner(System.in);
+        PersistenceOperations po = new PersistenceOperations();
+        boolean menu = true;
+        while (menu) {
+            System.out.println("Journal Menu");
             System.out.println("Press 1 to add a manuscript.");
             System.out.println("Press 2 to add authors to a manuscript.");
             System.out.println("Press 3 to assign a manuscript to reviewers.");
@@ -47,21 +84,7 @@ public class TestJournalDB {
             System.out.println("Press 7 to add a journal issue.");
             System.out.println("Press 8 to schedule a manuscript for publication.");
             System.out.println("Press 9 to publish an issue.");
-
-            //Searching and viewing. Nested menu?
-//            System.out.println("Press 9 to view all authors of a manuscript.");
-//            System.out.println("Press 10 to view all manuscripts in a published journal issue.");
-//            System.out.println("Press 13 to see all details on a manuscript.");
-//            System.out.println("Press 16 to see all details on a journal issue.");
-            //Admin, adding and removing entities. Nested Menu?
-            System.out.println("Press 11 to add an author/reviewer.");
-            System.out.println("Press 12 to add an affiliate.");
-            System.out.println("Press 13 to remove a person.");
-            System.out.println("Press 14 to remove an affiliate.");
-            System.out.println("Press 15 to remove a journal.");
-
-            //Exit
-            System.out.println("Press 99 to exit.");
+            System.out.println("Press 99 to exit Journal Menu and return to Main Menu.");
 
             int choice = in.nextInt();
             in.nextLine();
@@ -209,15 +232,52 @@ public class TestJournalDB {
                     journalID = in.nextInt();
                     po.publishJournal(journalID);
                     break;
-                case 10:
+                case 99:
+                    menu = false;
+                    break;
+                default:
+                    System.out.println("Invalid option entered.");
+                    break;
+            }
+        }
+    }
+
+    public static void adminMenu() {
+        PersistenceOperations po = new PersistenceOperations();
+        Scanner in = new Scanner(System.in);
+        boolean menu = true;
+        while (menu) {
+            System.out.println("Admin Menu");
+
+            System.out.println("Press 1 to add an affiliate.");
+            System.out.println("Press 2 to add an author/reviewer.");
+            System.out.println("Press 3 to remove an affiliate.");
+            System.out.println("Press 4 to remove an author/reviewer.");
+            System.out.println("Press 5 to remove a journal.");
+            System.out.println("Press 9 to exit Admin Menu and return to Main Menu.");
+
+            int choice = in.nextInt();
+            in.nextLine();
+            switch (choice) {
+                case 1:
+                    System.out.println("Please enter the name of the affilate you want to add.");
+                    String name = in.nextLine();
+                    System.out.println("Please enter the address.");
+                    String address = in.nextLine();
+                    System.out.println("Please enter the email.");
+                    String email = in.nextLine();
+                    Affiliate affil = new Affiliate(name, address, email);
+                    po.addAffil(affil);
+                    break;
+                case 2:
                     System.out.println("Please enter the first name of the person you would like to add.");
                     String fname = in.nextLine();
                     System.out.println("Please enter the surname of the person you would like to add.");
                     String lname = in.nextLine();
                     System.out.println("Please enter the address.");
-                    String address = in.nextLine();
+                    address = in.nextLine();
                     System.out.println("Please enter their email.");
-                    String email = in.nextLine();
+                    email = in.nextLine();
                     System.out.println("Please enter their role(author/reviewer): ");
                     String role = in.nextLine();
                     if (!(role.equalsIgnoreCase("author") || role.equalsIgnoreCase("reviewer"))) {
@@ -235,25 +295,19 @@ public class TestJournalDB {
                         po.addReviewer(reviewer);
                     }
                     break;
-                case 11:
-                    System.out.println("Please enter the name of the affilate you want to add.");
-                    String name = in.nextLine();
-                    System.out.println("Please enter the address.");
-                    address = in.nextLine();
-                    System.out.println("Please enter the email.");
-                    email = in.nextLine();
-                    Affiliate affil = new Affiliate(name, address, email);
-                    po.addAffil(affil);
+                case 3:
                     break;
-                case 99:
-                    po.close();
-                    System.exit(0);
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 9:
+                    menu = false;
                     break;
                 default:
                     System.out.println("Invalid option entered.");
                     break;
             }
-
         }
     }
 
