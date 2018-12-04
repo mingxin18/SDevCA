@@ -34,10 +34,19 @@ public class Journal {
     
     @Temporal(TemporalType.DATE)
     private Calendar pub_date;
-            
-    
-    
     
     @OneToMany(mappedBy = "journal", cascade = CascadeType.ALL)
     private List<Manuscript> mlist = new ArrayList<>();
+
+    public Journal() {
+    }
+
+    public Journal(String pub_period, int pub_year, int pub_volume, int pub_number) {
+        this.pub_period = pub_period;
+        this.pub_year = pub_year;
+        this.pub_volume = pub_volume;
+        this.pub_number = pub_number;
+    }
+    
+    
 }

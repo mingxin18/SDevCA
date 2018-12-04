@@ -43,15 +43,25 @@ public class Manuscript {
     @ManyToMany(mappedBy = "mlist", cascade = CascadeType.PERSIST)
     private List<Reviewer> rlist = new ArrayList<>();
 
+    public Manuscript() {
+    }
+    
+    
+
     public Manuscript(String manuscript_title) {
         this.manuscript_title = manuscript_title;
         this.manuscript_status = "received";
-//        this.received_date = today;
+        this.received_date = Calendar.getInstance();
     }
     
     public void addAuthor(Author a){
         this.alist.add(a);
         a.getMlist().add(this);
+    }
+    
+    public void addReviewer(Reviewer r){
+        this.rlist.add(r);
+        r.getMlist().add(this);
     }
 
     public int getManuscriptID() {

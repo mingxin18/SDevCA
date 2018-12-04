@@ -91,7 +91,7 @@ public class JournalOperations {
         fillJournalTable();
         fillManuscriptTable();
         fillManuscriptAuthorTable();
-//        fillManuscriptReviewTable();
+        fillManuscriptReviewTable();
     }
 
     public void dropPersonSequence() {
@@ -278,7 +278,7 @@ public class JournalOperations {
                     + "CONSTRAINT check_status CHECK (manuscript_status='received' "
                     + "OR manuscript_status='accepted' "
                     + "OR manuscript_status='rejected' "
-                    + "OR manuscript_status='under review' "
+                    + "OR manuscript_status='under_review' "
                     + "OR manuscript_status='scheduled' "
                     + "OR manuscript_status='published'),"
                     + "foreign key (journal_id) references Journal(journal_id) ON DELETE SET NULL)";
@@ -373,10 +373,10 @@ public class JournalOperations {
                     + "pub_volume number,"
                     + "pub_number number,"
                     + "pub_date date,"
-                    + "CONSTRAINT check_period CHECK(pub_period = 'Spring' "
-                    + "OR pub_period = 'Summer' "
-                    + "OR pub_period = 'Fall' "
-                    + "OR pub_period = 'Winter'),"
+                    + "CONSTRAINT check_period CHECK(pub_period = 'spring' "
+                    + "OR pub_period = 'summer' "
+                    + "OR pub_period = 'fall' "
+                    + "OR pub_period = 'winter'),"
                     + "primary key(journal_id))";
             pstmt = conn.prepareStatement(sql);
             pstmt.executeUpdate();
@@ -456,28 +456,28 @@ public class JournalOperations {
             String sql = "INSERT INTO journal VALUES(jid_seq.nextVal,?,?,?,?,?)";
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1, "Spring");
+            pstmt.setString(1, "spring");
             pstmt.setInt(2, 2018);
             pstmt.setInt(3, 1);
             pstmt.setInt(4, 1);
             pstmt.setDate(5, Date.valueOf("2018-01-20"));
             pstmt.executeUpdate();
 
-            pstmt.setString(1, "Summer");
+            pstmt.setString(1, "summer");
             pstmt.setInt(2, 2018);
             pstmt.setInt(3, 1);
             pstmt.setInt(4, 2);
             pstmt.setDate(5, Date.valueOf("2018-04-20"));
             pstmt.executeUpdate();
 
-            pstmt.setString(1, "Fall");
+            pstmt.setString(1, "fall");
             pstmt.setInt(2, 2018);
             pstmt.setInt(3, 1);
             pstmt.setInt(4, 3);
             pstmt.setDate(5, Date.valueOf("2018-07-20"));
             pstmt.executeUpdate();
 
-            pstmt.setString(1, "Winter");
+            pstmt.setString(1, "winter");
             pstmt.setInt(2, 2018);
             pstmt.setInt(3, 1);
             pstmt.setInt(4, 4);

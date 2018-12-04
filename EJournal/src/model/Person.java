@@ -25,7 +25,9 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pid_seq")
     @Column(name = "person_id")
     private int personID;
+    @Column(name="first_name")
     private String fname;
+    @Column(name="last_name")
     private String lname;
     private String address;
     private String email;
