@@ -204,6 +204,11 @@ public class TestJournalDB {
                         po.scheduleManuscriptToJournal(manuID, journalID);
                     }
                     break;
+                case 9:
+                    System.out.println("Please enter the id of the journal you wish to publish.");
+                    journalID = in.nextInt();
+                    po.publishJournal(journalID);
+                    break;
                 case 10:
                     System.out.println("Please enter the first name of the person you would like to add.");
                     String fname = in.nextLine();

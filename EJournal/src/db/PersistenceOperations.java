@@ -86,6 +86,13 @@ public class PersistenceOperations {
         j.scheduleManuscript(m);
         em.getTransaction().commit();
     }
+    
+    public void publishJournal(int journalID) {
+        em.getTransaction().begin();
+        Journal j = findJournal(journalID);
+        j.publish();
+        em.getTransaction().commit();
+    }
 
     public Person findPerson(int id) {
         Person p = em.find(Person.class, id);
@@ -130,5 +137,7 @@ public class PersistenceOperations {
         em.close();
         emf.close();
     }
+
+    
 
 }

@@ -102,5 +102,12 @@ public class Journal {
         m.setJournal(this);
     }
     
+    public void publish(){
+        for (int i = 0; i < mlist.size(); i++) {
+            mlist.get(i).setManuscript_status("published");
+        }
+        this.pub_date = Calendar.getInstance();
+    }
+    
     
 }
