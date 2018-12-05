@@ -79,4 +79,15 @@ public class Affiliate {
         p.setAffil(this);
     }
     
+     @Override
+    public String toString() {
+        System.out.println("Authors and Reviewers Info:");
+        for (int i = 0; i < plist.size(); i++) {
+            System.out.println(plist);
+        }
+        return ": " + String.format("%nAffiliate: %nAffiliate ID: %5d %nAffiliate Name: %10s "
+                + "%nContact Address: %10s %nContact Email: %10s%n", affiliate_id, affiliate_name, contact_address, contact_email);
+        
+    }
+    
 }
