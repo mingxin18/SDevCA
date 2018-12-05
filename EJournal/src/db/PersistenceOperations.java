@@ -180,6 +180,28 @@ public class PersistenceOperations {
         }
         em.getTransaction().commit();
     }
+    
+    public void addReview(int revID, int manuID, int revAppropriate, int revClarity, int revMethod, int revContribution, String revRecommendation){
+        em.getTransaction().begin();
+        
+        //might need to create a ManuscriptReview class to add review for a Manuscript
+        
+        
+        
+        em.getTransaction().commit();
+    }
+    
+    public void viewReview(int manuID){
+        em.getTransaction().begin();
+        Manuscript m = findManuscript(manuID);
+        
+        if(m == null){
+            System.out.println("Manuscript Not Found");
+        }else{
+            //write a printReview method for this viewing method
+        }
+        em.getTransaction().commit();
+    }
 
     public void close() {
         em.close();

@@ -28,12 +28,12 @@ public class TestJournalDB {
         jo.createTables();
         jo.fillTables();
 
-//        jo.fillAffiliateTable();
-//        jo.fillJournalTable();
-//        jo.fillPersonTable();
-//        jo.fillManuscriptTable();
-//        jo.fillManuscriptAuthorTable();
-//        jo.fillManuscriptReviewTable();
+        jo.fillAffiliateTable();
+        jo.fillJournalTable();
+        jo.fillPersonTable();
+        jo.fillManuscriptTable();
+        jo.fillManuscriptAuthorTable();
+        jo.fillManuscriptReviewTable();
         Scanner in = new Scanner(System.in);
 
         while (true) {
@@ -48,20 +48,21 @@ public class TestJournalDB {
             System.out.println("Press 8 to schedule a manuscript for publication.");
             System.out.println("Press 9 to publish an issue.");
 
-            //Searching and viewing. Nested menu?
-           System.out.println("Press 16 to view all authors of a manuscript.");
-           System.out.println("Press 17 to view all manuscripts in a published journal issue.");
-           System.out.println("Press 18 to see all details on a manuscript.");
-           System.out.println("Press 19 to see all details on a journal issue.");
             //Admin, adding and removing entities. Nested Menu?
             System.out.println("Press 11 to add an author/reviewer.");
             System.out.println("Press 12 to add an affiliate.");
             System.out.println("Press 13 to remove a person.");
             System.out.println("Press 14 to remove an affiliate.");
             System.out.println("Press 15 to remove a journal.");
+            //Searching and viewing. Nested menu?
+            System.out.println("Press 16 to view all authors of a manuscript.");
+            System.out.println("Press 17 to view all manuscripts in a published journal issue.");
+            System.out.println("Press 18 to see all details on a manuscript.");
+            System.out.println("Press 19 to see all details on a journal issue.");
+            
 
             //Exit
-            System.out.println("Press 99 to exit.");
+            System.out.println("Press 20 to exit.");
 
             int choice = in.nextInt();
             in.nextLine();
@@ -247,23 +248,23 @@ public class TestJournalDB {
                     break;
                 case 16:
                     System.out.println("Please enter the id of the manuscript that you want to view authors of.");
-                    int mID = in.nextInt();
-                    po.viewAuthor(mID);
+                    manuID = in.nextInt();
+                    po.viewAuthor(manuID);
                     break;
                 case 17:
                     System.out.println("Please enter the id of the journal issue that you want to view manuscripts of.");
-                    int jID = in.nextInt();
-                    po.viewManuscript(jID);
+                    journalID = in.nextInt();
+                    po.viewManuscript(journalID);
                     break;
                 case 18:
                     System.out.println("Please enter the id of the manuscript that you want to see.");
-                    int manuscriptID = in.nextInt();
-                    po.showManuscript(manuscriptID);
+                    manuID = in.nextInt();
+                    po.showManuscript(manuID);
                     break;
                 case 19:
                     System.out.println("Please enter the id of the journal issue that you want to see.");
-                    int issueID = in.nextInt();
-                    po.showJournal(issueID);
+                    journalID = in.nextInt();
+                    po.showJournal(journalID);
                     break;
                 case 20:
                     po.close();
