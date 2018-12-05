@@ -85,7 +85,8 @@ public class Affiliate {
         for (int i = 0; i < plist.size(); i++) {
             System.out.println(plist);
         }
-        return "Affiliate: " + String.format("\nAffiliate ID: %5d \nAffiliate Name: %10s \nContact Address: %10s \nContact Email: %10s", affiliate_id, affiliate_name, contact_address, contact_email);
+        return ": " + String.format("%nAffiliate: %nAffiliate ID: %5d %nAffiliate Name: %10s "
+                + "%nContact Address: %10s %nContact Email: %10s%n", affiliate_id, affiliate_name, contact_address, contact_email);
         
     }
     

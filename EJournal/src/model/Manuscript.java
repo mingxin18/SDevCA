@@ -145,6 +145,11 @@ public class Manuscript {
 //        }
 //    }
 
+    public String toString(){
+        return String.format("%nManuscript: %nManuscript ID: %5d %nTitle: %15s %nStatus: %15s %nReceived Date: %td %tb %td "
+                + "%nAcceptance Date: %td %tb %td %nJournal ID: %5d%n", manuscriptID, manuscript_title, manuscript_status, received_date, acceptance_date, journal);
+        
+    }
     
     
 }

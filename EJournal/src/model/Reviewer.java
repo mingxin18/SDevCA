@@ -47,7 +47,7 @@ public class Reviewer extends Person {
         for (int i = 0; i < mlist.size(); i++) {
             System.out.println(mlist);
         }
-        return "-----Manuscript list finished-----";
+        return "\n-----Manuscript list finished-----\n";
     }
     
     

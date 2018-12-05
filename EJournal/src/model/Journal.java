@@ -117,5 +117,13 @@ public class Journal {
 
     }
     
-    
+    public String toString(){
+        System.out.println("Manuscript Info:");
+        for (int i = 0; i < mlist.size(); i++) {
+            System.out.println(mlist);
+        }
+        return String.format("%nJournal: %nJournal ID: %5d %nPublish Period: %15s %nPublish Year: %10d %nPublish Volume: %10d "
+                + "%nPublish Number: %10d %nPublish Date: %td %tb %td%n", journalID, pub_period, pub_year, pub_volume, pub_number, pub_date);
+        
+    }
 }

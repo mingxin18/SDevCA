@@ -100,7 +100,8 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person:" + String.format("\nID: %5d \nFirst Name: %10s \nLast Name: %10s \nAddress: 510s \nEmail: %10s \nAffiliate: %5d ", personID, fname, lname, address, email, affil);
+        return String.format("%nPerson: %nID: %5d %nFirst Name: %10s %nLast Name: %10s "
+                + "%nAddress: %10s %nEmail: %10s %nAffiliate: %5d %n", personID, fname, lname, address, email, affil);
     }
 
     
