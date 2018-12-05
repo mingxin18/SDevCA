@@ -97,5 +97,11 @@ public class Person {
     public void setAffil(Affiliate affil) {
         this.affil = affil;
     }
+    
+    @Override
+    public String toString() {
+        return String.format("%nPerson: %nID: %5d %nFirst Name: %10s %nLast Name: %10s "
+                + "%nAddress: %10s %nEmail: %10s %nAffiliate: %5d %n", personID, fname, lname, address, email, affil);
+    }
 
 }
