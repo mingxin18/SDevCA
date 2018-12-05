@@ -43,6 +43,13 @@ public class Author extends Person {
         this.mlist = mlist;
     }
     
+    @Override
+    public String toString() {
+        for (int i = 0; i < mlist.size(); i++) {
+            System.out.println(mlist);
+        }
+        return "\n-----Manuscript list finished-----\n";
+    }
     
     
     
