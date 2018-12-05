@@ -132,6 +132,76 @@ public class PersistenceOperations {
         m.setManuscript_status("rejected");
         em.getTransaction().commit();
     }
+    
+    public void viewAuthor(int manuscript_id){
+        em.getTransaction().begin();
+        Manuscript m = findManuscript(manuscript_id);
+        
+        if(m == null){
+            System.out.println("Manuscript Not Found");
+        }else{
+            m.printAuthor();
+        }
+        em.getTransaction().commit();
+    }
+    
+    public void viewManuscript(int journalID){
+        em.getTransaction().begin();
+        Journal j = findJournal(journalID);
+        
+        if(j == null){
+            System.out.println("Journal Not Found");
+        }else{
+            j.printManuscript();
+        }
+        em.getTransaction().commit();
+    }
+    
+    public void showManuscript(int manuId){
+        em.getTransaction().begin();
+        Manuscript m = findManuscript(manuId);
+        
+        if(m == null){
+            System.out.println("Manuscript Not Found");
+        }else{
+            System.out.println(m);
+        }
+        em.getTransaction().commit();
+    }
+    
+    public void showJournal(int journalID){
+        em.getTransaction().begin();
+        Journal j = findJournal(journalID);
+        
+        if(j == null){
+            System.out.println("Journal Not Found");
+        }else{
+            System.out.println(j);
+        }
+        em.getTransaction().commit();
+    }
+    
+    public void addReview(int revID, int manuID, int revAppropriate, int revClarity, int revMethod, int revContribution, String revRecommendation){
+        em.getTransaction().begin();
+        
+        //might need to create a ManuscriptReview class to add review for a Manuscript
+        
+        
+        
+        em.getTransaction().commit();
+    }
+    
+    public void viewReview(int manuID){
+        em.getTransaction().begin();
+        Manuscript m = findManuscript(manuID);
+        
+        if(m == null){
+            System.out.println("Manuscript Not Found");
+        }else{
+            //write a printReview method for this viewing method
+        }
+        em.getTransaction().commit();
+    }
 
     public void close() {
         em.close();
