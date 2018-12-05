@@ -128,6 +128,28 @@ public class Manuscript {
         this.rlist = rlist;
     }
     
+    public void printAuthor(){
+        System.out.println("Authors for Manuscript ID: "+manuscriptID);
+        for (int i = 0; i < alist.size(); i++) {
+            System.out.println(alist);   
+        }
+
+    }
+    
+    
+//    public void printReviewer(){
+//        System.out.println("Reviewers for Manuscript ID: "+manuscriptID);
+//        for (int i = 0; i < rlist.size(); i++) {
+//            System.out.println(rlist);
+//                
+//        }
+//    }
+
+    public String toString(){
+        return String.format("%nManuscript: %nManuscript ID: %5d %nTitle: %15s %nStatus: %15s %nReceived Date: %td %tb %td "
+                + "%nAcceptance Date: %td %tb %td %nJournal ID: %5d%n", manuscriptID, manuscript_title, manuscript_status, received_date, acceptance_date, journal);
+        
+    }
     
 
     
