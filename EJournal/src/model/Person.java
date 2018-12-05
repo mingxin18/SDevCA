@@ -98,4 +98,10 @@ public class Person {
         this.affil = affil;
     }
 
+    @Override
+    public String toString() {
+        return "Person:" + String.format("\nID: %5d \nFirst Name: %10s \nLast Name: %10s \nAddress: 510s \nEmail: %10s \nAffiliate: %5d ", personID, fname, lname, address, email, affil);
+    }
+
+    
 }

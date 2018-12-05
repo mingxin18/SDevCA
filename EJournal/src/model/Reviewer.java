@@ -41,6 +41,16 @@ public class Reviewer extends Person {
     public void setMlist(List<Manuscript> mlist) {
         this.mlist = mlist;
     }
+
+    @Override
+    public String toString() {
+        for (int i = 0; i < mlist.size(); i++) {
+            System.out.println(mlist);
+        }
+        return "-----Manuscript list finished-----";
+    }
+    
+    
     
     
 
