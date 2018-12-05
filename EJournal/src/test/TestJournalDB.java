@@ -37,13 +37,6 @@ public class TestJournalDB {
             System.out.println("Press 3 to enter Admin Menu.");
             System.out.println("Press 9 to exit.");
 
-//            Viewing Menu
-//            System.out.println("Press 9 to view all authors of a manuscript.");
-//            System.out.println("Press 10 to view all manuscripts in a published journal issue.");
-//            System.out.println("Press 13 to see all details on a manuscript.");
-//            System.out.println("Press 16 to see all details on a journal issue.");
-            
-
             int choice = in.nextInt();
             in.nextLine();
             switch (choice) {
@@ -51,7 +44,7 @@ public class TestJournalDB {
                     journalMenu();
                     break;
                 case 2:
-//                    viewingMenu();
+                    viewingMenu();
                     break;
                 case 3:
                     adminMenu();
@@ -310,5 +303,54 @@ public class TestJournalDB {
             }
         }
     }
+    
+    public static void viewingMenu(){
+        PersistenceOperations po = new PersistenceOperations();
+        Scanner in = new Scanner(System.in);
+        boolean menu = true;
+        while (menu) {
+            System.out.println("Viewing Menu");
+            System.out.println("Press 1 to view all authors of a manuscript.");
+            System.out.println("Press 2 to view all manuscripts in a published journal issue.");
+            System.out.println("Press 3 to see all details on a manuscript.");
+            System.out.println("Press 4 to see all details on a journal issue.");
+            System.out.println("Press 5 to exit Viewing Menu and return to Main Menu.");
+            
+            int choice = in.nextInt();
+            in.nextLine();
+            switch (choice) {
+                case 1:
+                    System.out.println("Please enter the id of the manuscript that you want to view authors of.");
+                    int manuID = in.nextInt();
+                    //po.viewAuthor(manuID);
+                    break;
+                case 2:
+                    System.out.println("Please enter the id of the journal issue that you want to view manuscripts of.");
+                    int journalID = in.nextInt();
+                    //po.viewManuscript(journalID);
+                    break;
+                case 3:
+                    System.out.println("Please enter the id of the manuscript that you want to see.");
+                    manuID = in.nextInt();
+                    //po.showManuscript(manuID);
+                    break;
+                case 4:
+                    System.out.println("Please enter the id of the journal issue that you want to see.");
+                    journalID = in.nextInt();
+                    //po.showJournal(journalID);
+                    break;
+                case 5:
+                    menu = false;
+                    break;
+                default:
+                    System.out.println("Invalid option entered.");
+                    break;
+            }
+   
+        }
+            
+
+    }
+
 
 }
