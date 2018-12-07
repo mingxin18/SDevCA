@@ -46,7 +46,7 @@ public class JournalOperations {
             System.out.println("Connection closed");
         } catch (SQLException ex) {
             System.out.println("Could not close connection " + ex.getMessage());
-        }
+        } 
     }
 
     public void dropSequences() {
